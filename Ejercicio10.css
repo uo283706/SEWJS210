@@ -1,0 +1,160 @@
+/**********************************************
+    Sara L. - UO283706
+    Descripcion de los estilos
+    Estilo para la página principal del sitio web
+**********************************************/
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(255, 204, 204);
+    color: white;
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+h1{
+    border-style: solid;
+    border-color: chocolate;
+    border-radius: 1.2em;
+    border-width: 0.5em ;
+    background-color: crimson;
+    color: white; 
+}
+
+h3{
+    background-color: crimson;
+    color: white;
+    font-size: 1.1em;
+    border-style: solid;
+    border-color: chocolate;
+    border-radius: 1.2em;
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+header{
+    font:bold;
+    font-size: 2.7em;
+    background-color: rgb(239, 129, 51);
+    color:black;
+    border-style: groove;
+    border-color: chocolate;
+    border-width: 0.5em ; 
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+nav{
+    background-color: crimson;
+    color: white;
+    font-size: 1.1em;
+    border-style: solid;
+    border-color: chocolate;
+    border-radius: 1.2em;
+   
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+p{
+    background-color: crimson;
+    color: white;
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+aside{
+    border-style: solid;
+    border-color: chocolate;
+    background-color: crimson;
+    color: white;
+    border-width: 0.5em ; 
+    border-radius: 1.2em;
+    
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+footer{
+    font:italic;
+    background-color: crimson;
+    color:white;
+    border-style: solid;
+    border-color: chocolate;
+    border-width: 0.5em ; 
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+a{
+    color: white;
+    background-color: crimson;
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+address{
+    color: white;
+    font-style: italic;
+    background-color: crimson;
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+form{
+    background-color: crimson;
+    color: white;
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+table{
+    background-color: crimson;
+    color: white;
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+video{
+    height: 30vw;
+    width: 45vw;
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=1*/
+h2{
+    font-size: 2em;
+    background-color: crimson;
+    color: white;
+}
+
+/*Especificidad:(0,0,2) A=0 B=0 C=2*/
+nav a {
+    color: white;
+    background-color: crimson;
+}
+
+/*Especificidad:(0,0,2) A=0 B=0 C=2*/
+form button {
+    font-size: 1.5em;
+}
+
+/*Especificidad:(0,0,2) A=0 B=0 C=2*/
+address a{
+    color: white;
+    background-color: crimson;
+
+}
+
+/*Especificidad:(0,0,1) A=0 B=0 C=2*/
+aside a{
+    color: white;
+    background-color: crimson;
+}
+
+/*Especificidad:(0,0,2) A=0 B=0 C=2*/
+section img {
+    border-radius: 1em;
+}
+
+/*Especificidad:(0,0,3) A=0 B=0 C=3*/
+section picture img{
+    height: 20vw;
+    width: 35vw;
+}
+
+/*Especificidad:(0,0,3) A=0 B=0 C=3*/
+footer picture img {
+    border-radius: 0.4em;
+    height: 5vh;
+    width: 5vh;
+}
