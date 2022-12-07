@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<html lang="es">
+<head>
+    <!--Datos que describen el documento-->
+    <meta charset="UTF-8">
+    <!--Metadatos de los documentos HTML5-->
+    <meta name ="author" content ="Sara Lamuño" >
+    <meta name ="description" content ="Ejercicio 10 de JQuery" >
+    <meta name ="keywords" content ="Calculadora, más, menos, por,entre" >
+
+    <meta name ="viewport" content ="width=device-width, initial-scale=1.0" >
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src = "Ejercicio10.js" ></script>
+    
+
+    <title>Tiempo meteorológico en XML</title>
+    <!--Añadir el elemento link de enlace a la hoja de estilo dento del <head> del documento html-->
+   
+     
+    <link rel="stylesheet" type="text/css" href="Ejercicio10.css">
+
+</head>
+
+<body>
+       
+    <h1>Información nacional de los precios de la electricidad</h1>
+       
+        <main>
+
+
+            <h2>Selección de fechas:</h2>
+
+            <p>
+                <label for="selecFechaInit">Fecha inicial</label>
+                <input type="date" id="selecFechaInit"  name="selectFechaInit" step="1" min="2000-01-01" >
+            </p>
+            
+            <p>
+                <label for="selecFechaFin">Fecha final</label>
+                <input type="date" id="selecFechaFin"  name="selectFechaFin" step="1" min="2000-01-01" >
+            </p>
+           
+
+            <h2>Seleccion de categoría:</h2>
+
+            <p>
+                <input type="checkbox" id="categoria1" name="categoria1" tabindex="1" value="balance" onclick="requestCreator.checkearCheckbox('categoria1')">
+                <label for="categoria1"> Balance </label>
+            </p>
+            <p>
+                <input type="checkbox" id="categoria2" name="categoria2" tabindex="2" value="demanda" onclick="requestCreator.checkearCheckbox('categoria2')">
+                <label for="categoria2"> Demanda </label>
+            </p>
+            <p>
+                <input type="checkbox" id="categoria3" name="categoria3" tabindex="3" value="generacion" onclick="requestCreator.checkearCheckbox('categoria3')">
+                <label for="categoria3"> Generación </label>
+            </p>
+            <p>
+                <input type="checkbox" id="categoria4" name="categoria4" tabindex="4" value="intercambios" onclick="requestCreator.checkearCheckbox('categoria4')">
+                <label for="categoria4"> Intercambios </label>
+            </p>
+            <p>
+                <input type="checkbox" id="categoria5" name="categoria5" tabindex="5" value="transporte" onclick="requestCreator.checkearCheckbox('categoria5')">
+                <label for="categoria5"> Transporte </label>
+            </p>
+            <p>
+                <input type="checkbox" id="categoria6" name="categoria6" tabindex="6" value="mercados" onclick="requestCreator.checkearCheckbox('categoria6')">
+                <label for="categoria6"> Mercados </label>
+    
+            </p>
+           
+           
+           
+            <p>
+                <label for="select"> Seleccione apartado </label>
+                <select id="select" name="select">
+                    <option value="value1">Seleccione categoría</option>
+                </select>
+            </p>
+            
+           <p>
+            <label for="nombreArchivo">Archivo a descargar:</label>
+            <input type='text' id = "nombreArchivo" value="default.txt">
+           </p>
+
+            
+
+            
+
+            
+            
+            
+
+            
+
+            <button id="request" onclick="requestCreator.iniciarRequest()">Descargar Datos</button>
+
+
+           
+        </main>
+
+
+
+
+</body>
+</html>

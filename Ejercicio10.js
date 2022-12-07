@@ -1,27 +1,26 @@
-class Electricidad{
+class InfoElectri{
 
    
 
     constructor(initFecha, endFecha, lan, categoria, widget){                                                              
         
        
-        this.truncday = "&time_trunc=day";
-        this.startDate = "start_date=" + initFecha + "T00:00";
-        this.endDate = "end_date=" + endFecha + "T23:59";
-        this.ccaa = "geo_limit=" + "peninsular"; 
+        
+        this.iniFecha = "start_date=" + initFecha + "T00:00";
+        this.finFecha = "end_date=" + endFecha + "T23:59";
+        this.penin = "geo_limit=" + "peninsular"; 
         this.category = categoria;
         this.widget = widget;
         this.lang = lan;
-        this.query = "" + this.startDate + "&" + this.endDate;
-        this.url = "https://apidatos.ree.es/" + this.lang + "/datos/" + this.category + "/" + this.widget + "?" + this.query + this.truncday + "&" + this.ccaa;
+        this.q = "" + this.iniFecha + "&" + this.finFecha;
+        this.truncday = "&time_trunc=day";
+        this.url = "https://apidatos.ree.es/" + this.lang + "/datos/" + this.category + "/" + this.widget + "?" + this.q + this.truncday + "&" + this.penin;
         this.datos = null;
         
     }
 
 
-    cargarDatos(filename, request){
-
-       
+    cargarDatos(nombreArchivo, peticion){
 
         $.ajax({
             dataType: "json",
@@ -29,11 +28,11 @@ class Electricidad{
             method: 'GET',
             success: function(datos){
 
-               request.download(filename, JSON.stringify(datos,null,2));
+               peticion.download(nombreArchivo, JSON.stringify(datos,null,2));
                 },
 
             error:function(){
-                alert("Oh oh, algo no ha ido como se esperaba, quizás no haya datos en la plataforma,Repase los datos introducidos o pruebe a cambiar la seleccion de truncado por día.");
+                alert("Error al descargar los datos, puede ser a causa de que no hay datos de ese apartado por ahora o por causa de las fechas.Inténtalo de nuevo.");
                return;
                 
                 }
@@ -43,55 +42,42 @@ class Electricidad{
     }
 
 
-    currDate(){
-       let n =  new Date();
-        let y = n.getFullYear();
-        let m = n.getMonth();
-        let d = n.getDate() - 1;
-
-        return "" + y + "-" + m + "-" + d;
-    }
-
-
     
 
 }
 
 
-class RequestCreator{
+class Peticion{
 
 
     constructor(){
-        this.widgetsBalance = ["balance-electrico"];
+        this.Balance = ["balance-electrico"];
 
-        this.widgetsDemanda = ["evolucion"
+        this.Demanda = ["evolucion"
         ,"ire-general-movil","ire-industria","ire-industria-movil",
         "ire-servicios","ire-servicios-movil"];
 
 
-        this.widgetsGeneracion = ["estructura-generacion","evolucion-renovable-no-renovable","estructura-renovables",
+        this.Gen = ["estructura-generacion","evolucion-renovable-no-renovable","estructura-renovables",
         "estructura-generacion-emisiones-asociadas","evolucion-estructura-generacion-emisiones-asociadas","no-renovables-detalle-emisiones-CO2",
         "maxima-renovable", "potencia-instalada", "maxima-renovable-historico", "maxima-sin-emisiones-historico"];
     
-        this.widgetsIntercambios = ["francia-frontera", "portugal-frontera", "marruecos-frontera",
-        "andorra-frontera", "lineas-francia", "lineas-portugal", "lineas-marruecos","lineas-andorra","francia-frontera-programado" ,
-        "portugal-frontera-programado", "marruecos-frontera-programado", "andorra-frontera-programado", "enlace-baleares",
-        "frontera-fisicos","todas-fronteras-fisicos", "frontera-programados", "todas-fronteras-programados"];
+        this.Inter = ["francia-frontera", "andorra-frontera", "lineas-francia", "lineas-andorra","francia-frontera-programado" , 
+        "andorra-frontera-programado", "enlace-baleares", "frontera-fisicos","todas-fronteras-fisicos", "frontera-programados", "todas-fronteras-programados"];
             
 
-        this.widgetsTrasnporte =["energia-no-suministrada-ens", "indice-indisponibilidad", "tiempo-interrupcion-medio-tim", "kilometros-lineas",
-    "indice-disponibilidad", "numero-cortes","ens-tim","indice-disponibilidad-total"];
+        this.Transporte =["indice-disponibilidad", "indice-indisponibilidad", "kilometros-lineas", "numero-cortes",
+        "indice-disponibilidad-total","energia-no-suministrada-ens"];
       
-        this.widgetsMercados = ["componentes-precio-energia-cierre-desglose", "componentes-precio", "energia-gestionada-servicios-ajuste",
-        "energia-restricciones","precios-restricciones","reserva-potencia-adicional","banda-regulacion-secundaria",
+        this.Mercados = ["componentes-precio", "energia-gestionada-servicios-ajuste",
+        "energia-restricciones","precios-restricciones","banda-regulacion-secundaria",
         "energia-precios-regulacion-secundaria","energia-precios-regulacion-terciaria","energia-precios-gestion-desvios",
-        "coste-servicios-ajuste","volumen-energia-servicios-ajuste-variacion","precios-mercados-tiempo-real",
-        "energia-precios-ponderados-gestion-desvios-before","energia-precios-ponderados-gestion-desvios","energia-precios-ponderados-gestion-desvios-after"];
+        "coste-servicios-ajuste","volumen-energia-servicios-ajuste-variacion","precios-mercados-tiempo-real", "energia-precios-ponderados-gestion-desvios"];
     }
 
     pedirElectricista(initFecha, endFecha, lan, categoria, widget){
 
-        return new Electricidad(initFecha, endFecha, lan, categoria, widget);
+        return new InfoElectri(initFecha, endFecha, lan, categoria, widget);
 
 
     }
@@ -100,12 +86,12 @@ class RequestCreator{
 
         
 
-        let haySeleccionada = false;
+        let selec = false;
        
         let i = 1;
         for(i = 1; i <= 6; i++){
             if($('#categoria' + i).is(":checked")){
-                haySeleccionada = true;
+                selec = true;
 
                 
                 return $('#categoria' + i).val();
@@ -113,7 +99,7 @@ class RequestCreator{
         }
         
 
-        if(haySeleccionada == false){
+        if(selec == false){
             alert("Seleccione una categoría");
             return;
         }
@@ -159,30 +145,30 @@ class RequestCreator{
         if(categoria == 'balance'){
 
 
-            this.writeWidgets(this.widgetsBalance);
+            this.writeWidgets(this.Balance);
 
 
 
         }else if(categoria == 'demanda'){
 
-            this.writeWidgets(this.widgetsDemanda);
+            this.writeWidgets(this.Demanda);
 
 
 
         }else if(categoria == 'generacion'){
 
-            this.writeWidgets(this.widgetsGeneracion);
+            this.writeWidgets(this.Gen);
 
         }else if(categoria == 'intercambios'){
 
-            this.writeWidgets(this.widgetsIntercambios);
+            this.writeWidgets(this.Inter);
 
         }else if(categoria == 'transporte'){
 
-            this.writeWidgets(this.widgetsTrasnporte);
+            this.writeWidgets(this.Transporte);
 
-        }else { //Mercados
-            this.writeWidgets(this.widgetsMercados);
+        }else {
+            this.writeWidgets(this.Mercados);
         }
 
     }
@@ -205,22 +191,11 @@ class RequestCreator{
        if(categoriaStr==''){
             return;
        }
-        
-        
-       var checkbox = document.querySelector('input[type=checkbox][name=\"truncarDia\"]');
 
        
         let electricista = this.pedirElectricista($("#selecFechaInit").val() , $("#selecFechaFin").val(), "es", categoriaStr, $("select option:selected").val());
 
-        electricista.cargarDatos($('input[type=text]').val(),this);
-      
-      
-
-        
-       
-       
-
-       
+        electricista.cargarDatos($('input[type=text]').val(),this); 
         
     }
 
@@ -254,7 +229,7 @@ class RequestCreator{
 
 
 document.addEventListener('keydown', function (event) {
-    if (event.key === 'b') {
+    if (event.key === 'u') {
         requestCreator.forKeyBoardCheckbuttons('categoria1');
         
         requestCreator.checkearCheckbox('categoria1');
@@ -263,26 +238,23 @@ document.addEventListener('keydown', function (event) {
         requestCreator.forKeyBoardCheckbuttons('categoria2');
         requestCreator.checkearCheckbox('categoria2');
     }
-    if (event.key === 'g') {
+    if (event.key === 't') {
         requestCreator.forKeyBoardCheckbuttons('categoria3');
         requestCreator.checkearCheckbox('categoria3');
       }
-    if (event.key === 'i') {
+    if (event.key === 'c') {
         requestCreator.forKeyBoardCheckbuttons('categoria4');
         requestCreator.checkearCheckbox('categoria4');
     }
-    if (event.key === 't') {
+    if (event.key === 'i') {
         requestCreator.forKeyBoardCheckbuttons('categoria5');
         requestCreator.checkearCheckbox('categoria5');
     }
-    if (event.key === 'm') {
+    if (event.key === 's') {
         requestCreator.forKeyBoardCheckbuttons('categoria6');
         requestCreator.checkearCheckbox('categoria6');
-    }
-    if (event.key === 'r') {
-        requestCreator.forKeyBoardCheckbuttons('porDia');
     }
   });
 
 
-var requestCreator = new RequestCreator();
+var requestCreator = new Peticion();
